@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import './App.css'
 class App extends Component {
+
+  state = {
+    todos: [
+      {name: 'clean dishes', id: 1, complete: false},
+      {name: 'wash up', id: 2, complete: false},
+      {name: 'buy milk', id: 3, complete: false}
+    ]
+  }
+
+  handleTodo(id){
+    const state = [...this.state.todos]
+    const todoFound = state.find(todo => todo.id === id)
+    todoFound.complete = !todoFound.complete
+    this.setState({todoFound})
+  }
+
   render() {
+    console.log()
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h4> Todos </h4>
+        {this.state.todos.map(todo => (
+          <div className="todo">
+            <span className={todo.complete ? 'done' : ''}> {todo.name} </span>
+            <button onClick={() => this.handleTodo(todo.id)}> {todo.complete ? 'undo' : 'done'} </button>
+          </div>
+        ))}
+        You have {this.state.todos.filter(todo => !todo.complete).length} todos left to do
       </div>
     );
   }
