@@ -14,7 +14,7 @@ class App extends Component {
     const state = [...this.state.todos]
     const todoFound = state.find(todo => todo.id === id)
     todoFound.complete = !todoFound.complete
-    this.setState({todoFound})
+    this.setState({todos: state})
   }
 
   render() {
